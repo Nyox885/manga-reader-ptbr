@@ -15,10 +15,10 @@ const HTML = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--bg:#0c0c0e;--sf:#151519;--sf2:#1e1e24;--bd:rgba(255,255,255,.08);--tx:#f4f4f6;--mu:#9b9ba8;--ac:#e11d48;--ac2:#be123c;--as:rgba(225,29,72,.14);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+:root{--bg:#0c0c0e;--sf:#151519;--sf2:#1e1e24;--bd:rgba(255,255,255,.08);--tx:#f4f4f6;--mu:#9b9ba8;--ac:#e11d48;--as:rgba(225,29,72,.14);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
 [data-theme=light]{--bg:#f6f6f8;--sf:#fff;--sf2:#eceef2;--bd:rgba(15,23,42,.09);--tx:#111115;--mu:#646473;--as:rgba(225,29,72,.1)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);font-family:'Inter',-apple-system,sans-serif;font-size:15px}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--tx);font-family:'Inter',-apple-system,sans-serif;font-size:15px;overflow-x:hidden}
 .hidden{display:none!important}
 button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .top-header{position:sticky;top:0;z-index:30;padding-top:var(--st);background:var(--bg);border-bottom:1px solid var(--bd)}
@@ -37,18 +37,18 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .continue-label{font-size:11px;font-weight:700;color:var(--ac);text-transform:uppercase}
 .continue-title{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .continue-chap{font-size:13px;color:var(--mu)}
-.continue-cta{background:var(--ac);color:#fff;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600}
+.continue-cta{background:var(--ac);color:#fff;padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600;flex-shrink:0}
 .horizontal-list{display:flex;gap:12px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}
 .horizontal-list::-webkit-scrollbar{display:none}
 .horizontal-list .manga-card{flex:0 0 132px}
 .manga-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
 @media(min-width:600px){.manga-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}}
 @media(min-width:840px){.manga-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-.manga-card{display:flex;flex-direction:column;gap:6px;cursor:pointer}
+.manga-card{display:flex;flex-direction:column;gap:6px;cursor:pointer;min-width:0}
 .manga-cover-wrap{position:relative;aspect-ratio:2/3;border-radius:10px;overflow:hidden;background:var(--sf2);border:1px solid var(--bd)}
 .manga-cover{width:100%;height:100%;object-fit:cover;display:block}
-.manga-badge{position:absolute;top:6px;left:6px;background:rgba(12,12,14,.8);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px}
-.manga-title{font-size:13px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.manga-badge{position:absolute;top:6px;left:6px;background:rgba(12,12,14,.82);color:#fff;font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px}
+.manga-title{font-size:13px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;word-break:break-word}
 .manga-meta{font-size:11px;color:var(--mu)}
 .btn-secondary{background:var(--sf);border:1px solid var(--bd);padding:11px 22px;border-radius:12px;font-size:14px;font-weight:600;margin:18px auto 0;display:block}
 .search-bar{display:flex;align-items:center;gap:8px;background:var(--sf);border:1px solid var(--bd);border-radius:14px;padding:0 12px;height:46px}
@@ -62,33 +62,36 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .tab-btn{flex:1;padding:9px;border-radius:9px;font-size:14px;font-weight:600;color:var(--mu)}
 .tab-btn.active{background:var(--sf2);color:var(--tx)}
 .pill-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;background:var(--sf);border:1px solid var(--bd);font-size:14px;font-weight:600}
-.detail-hero{display:flex;gap:16px;margin:14px 0 18px}
-.detail-cover{width:118px;height:172px;border-radius:10px;object-fit:cover;background:var(--sf2);flex-shrink:0}
-.detail-title{margin:0 0 6px;font-size:20px;font-weight:800;line-height:1.25}
+.detail-hero{display:flex;gap:14px;margin:14px 0 18px;align-items:flex-start}
+.detail-cover{width:112px;height:164px;border-radius:10px;object-fit:cover;background:var(--sf2);flex-shrink:0}
+.detail-meta{flex:1;min-width:0}
+.detail-title{margin:0 0 6px;font-size:19px;font-weight:800;line-height:1.25;word-break:break-word}
 .detail-author{font-size:13px;color:var(--mu);margin-bottom:8px}
 .detail-tags{display:flex;flex-wrap:wrap;gap:6px}
 .tag-pill{font-size:11px;font-weight:600;padding:3px 8px;border-radius:6px;background:var(--sf2);color:var(--mu)}
 .detail-actions{display:flex;gap:10px;margin-bottom:16px}
 .btn-primary{flex:1;background:var(--ac);color:#fff;padding:12px 16px;border-radius:12px;font-size:15px;font-weight:700;text-align:center}
-.btn-fav{padding:12px 16px;border-radius:12px;background:var(--sf);border:1px solid var(--bd);font-size:14px;font-weight:600}
+.btn-primary:disabled{opacity:.45}
+.btn-fav{padding:12px 16px;border-radius:12px;background:var(--sf);border:1px solid var(--bd);font-size:14px;font-weight:600;flex-shrink:0}
 .btn-fav.saved{border-color:var(--ac);color:var(--ac);background:var(--as)}
-.detail-desc{font-size:14px;color:var(--mu);line-height:1.55;margin-bottom:20px}
-.chapters-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.detail-desc{font-size:14px;color:var(--mu);line-height:1.55;margin-bottom:20px;word-break:break-word}
+.chapters-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px}
 .chapters-list{display:flex;flex-direction:column;gap:8px}
-.chapter-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;text-align:left}
+.chapter-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;background:var(--sf);border:1px solid var(--bd);border-radius:12px;text-align:left;width:100%}
 .chapter-item.read{opacity:.55}
-.chapter-num{font-weight:700;font-size:14px}
+.chapter-info{flex:1;min-width:0}
+.chapter-num{font-weight:700;font-size:14px;word-break:break-word}
 .chapter-sub{font-size:12px;color:var(--mu);margin-top:2px}
-.chapter-badge{font-size:11px;font-weight:700;color:var(--ac);background:var(--as);padding:3px 8px;border-radius:6px}
+.chapter-badge{font-size:11px;font-weight:700;color:var(--ac);background:var(--as);padding:3px 8px;border-radius:6px;flex-shrink:0}
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;z-index:30;height:calc(62px + var(--sb));padding-bottom:var(--sb);background:var(--bg);border-top:1px solid var(--bd);display:flex;justify-content:space-around}
 .nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:var(--mu);font-size:11px;font-weight:600}
 .nav-item.active{color:var(--ac)}
 .reader-overlay{position:fixed;inset:0;z-index:100;background:#000;color:#fff;display:flex;flex-direction:column}
-.reader-hud{position:fixed;left:0;right:0;z-index:110;background:rgba(12,12,14,.9);transition:transform .2s,opacity .2s}
+.reader-hud{position:fixed;left:0;right:0;z-index:110;background:rgba(12,12,14,.92);transition:transform .2s,opacity .2s}
 .reader-hud.hud-hidden.reader-top{transform:translateY(-100%);opacity:0;pointer-events:none}
 .reader-hud.hud-hidden.reader-bottom{transform:translateY(100%);opacity:0;pointer-events:none}
 .reader-top{top:0;padding:calc(var(--st) + 8px) 12px 10px;display:flex;align-items:center;gap:10px}
-.reader-icon-btn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.1)}
+.reader-icon-btn{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;background:rgba(255,255,255,.12);flex-shrink:0}
 .reader-title-wrap{flex:1;min-width:0}
 .reader-manga-title{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .reader-chapter-title{font-size:12px;color:#a1a1aa}
@@ -98,9 +101,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .seg-btn{padding:6px 11px;border-radius:7px;font-size:12px;font-weight:600;color:#a1a1aa}
 .seg-btn.active{background:var(--ac);color:#fff}
 .reader-stage{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.reader-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#a1a1aa}
-.reader-pages.mode-vertical{display:flex;flex-direction:column;align-items:center;max-width:800px;margin:0 auto;padding-bottom:90px}
-.reader-pages.mode-vertical img{width:100%;height:auto;display:block}
+.reader-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#a1a1aa;padding:24px;text-align:center;gap:12px}
+.reader-pages.mode-vertical{display:flex;flex-direction:column;align-items:center;max-width:800px;margin:0 auto;padding:56px 0 90px}
+.reader-pages.mode-vertical img{width:100%;height:auto;display:block;min-height:180px;background:#111}
 .reader-pages.mode-paged{height:100%;display:flex;align-items:center;justify-content:center;padding:56px 0 68px}
 .reader-pages.mode-paged img{max-width:100%;max-height:100%;object-fit:contain}
 .reader-bottom{bottom:0;padding:10px 14px calc(var(--sb) + 10px);display:flex;align-items:center;justify-content:space-between}
@@ -169,11 +172,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 <div id="toast" class="toast hidden"></div>
 <script>
 const K={TH:"mbr_th",FAV:"mbr_fav",HIS:"mbr_his",READ:"mbr_read",MODE:"mbr_mode",QUAL:"mbr_qual"};
-const S={tab:"home",prev:"home",off:0,load:false,q:"",tag:"",lib:"favorites",manga:null,chaps:[],desc:true,r:{idx:-1,pages:[],pg:0,mode:localStorage.getItem(K.MODE)||"vertical",qual:localStorage.getItem(K.QUAL)||"data",hud:true}};
+const S={tab:"home",prev:"home",off:0,load:false,q:"",tag:"",lib:"favorites",manga:null,chaps:[],desc:true,r:{idx:-1,pages:[],fallbacks:[],pg:0,mode:localStorage.getItem(K.MODE)||"vertical",qual:localStorage.getItem(K.QUAL)||"data",hud:true}};
 const $=id=>document.getElementById(id);
 const gJ=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch{return d}};
 const sJ=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
-const api=p=>fetch("/api"+p).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+const api=p=>fetch("/api"+p).then(r=>{if(!r.ok)throw new Error("HTTP "+r.status);return r.json()});
 const gTitle=a=>(a.title["pt-br"]||a.title.pt||(a.altTitles||[]).find(x=>x["pt-br"])?.["pt-br"]||a.title.en||a.title["ja-ro"]||Object.values(a.title)[0]||"Sem título");
 const gDesc=a=>(a.description["pt-br"]||a.description.pt||a.description.en||"Sinopse não disponível.");
 const gCov=(m,sz=256)=>{const c=(m.relationships||[]).find(r=>r.type==="cover_art")?.attributes?.fileName;return c?"/img?url="+encodeURIComponent("https://uploads.mangadex.org/covers/"+m.id+"/"+c+"."+sz+".jpg"):""};
@@ -211,13 +214,24 @@ function renderLib(){
   e.classList.add("hidden");
   it.forEach(x=>{const d=document.createElement("div");d.className="manga-card";d.innerHTML='<div class="manga-cover-wrap">'+(x.cover?'<img class="manga-cover" src="'+x.cover+'" loading="lazy"/>':'')+'</div><div class="manga-title"></div>'+(x.chapterNum?'<div class="manga-meta">Cap. '+x.chapterNum+'</div>':'');d.querySelector(".manga-title").textContent=x.title;d.onclick=()=>openDetail(x.mangaId);c.appendChild(d)});
 }
+async function fetchAllChapters(id){
+  let all=[],offset=0,total=1;
+  while(offset<total&&offset<2000){
+    const f=await api("/manga/"+id+"/feed?translatedLanguage[]=pt-br&translatedLanguage[]=pt&order[chapter]=desc&limit=500&offset="+offset+"&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&includes[]=scanlation_group");
+    const batch=f.data||[];
+    all=all.concat(batch);
+    total=f.total||batch.length;
+    if(batch.length<500)break;
+    offset+=500;
+  }
+  return all.filter(c=>c.attributes.pages>0||c.attributes.externalUrl);
+}
 async function openDetail(id,cached){
-  switchTab("detail");$("detail-body").innerHTML='<p class="status-text">Carregando...</p>';
+  switchTab("detail");$("detail-body").innerHTML='<p class="status-text">Carregando capítulos em português...</p>';
   try{
     let m=cached;if(!m||!m.relationships?.some(r=>r.type==="author"))m=(await api("/manga/"+id+"?includes[]=cover_art&includes[]=author")).data;
     S.manga=m;
-    const f=await api("/manga/"+id+"/feed?translatedLanguage[]=pt-br&translatedLanguage[]=pt&order[chapter]=desc&limit=100&contentRating[]=safe&contentRating[]=suggestive&includes[]=scanlation_group");
-    S.chaps=(f.data||[]).filter(c=>c.attributes.pages>0||c.attributes.externalUrl);
+    S.chaps=await fetchAllChapters(id);
     renderDetail();
   }catch{$("detail-body").innerHTML='<p class="status-text">Erro ao carregar detalhes.</p>'}
 }
@@ -227,49 +241,62 @@ function renderDetail(){
   const tags=(m.attributes.tags||[]).slice(0,5).map(x=>x.attributes?.name?.["pt-br"]||x.attributes?.name?.en).filter(Boolean);
   const fav=gJ(K.FAV,[]).some(f=>f.mangaId===m.id),rd=new Set(gJ(K.READ,[]));
   S.chaps.sort((a,b)=>S.desc?(parseFloat(b.attributes.chapter)||0)-(parseFloat(a.attributes.chapter)||0):(parseFloat(a.attributes.chapter)||0)-(parseFloat(b.attributes.chapter)||0));
-  const firstIdx=S.desc?S.chaps.length-1:0;
+  const firstIdx=S.chaps.findIndex(c=>c.attributes.pages>0);
+  const startIdx=S.desc?[...S.chaps].reverse().findIndex(c=>c.attributes.pages>0):-1;
+  const playIdx=S.desc?(startIdx>=0?S.chaps.length-1-startIdx:0):(firstIdx>=0?firstIdx:0);
   const b=$("detail-body");
   b.innerHTML='<div class="detail-hero"><img class="detail-cover" src="'+cv+'"/><div class="detail-meta"><h1 class="detail-title"></h1><div class="detail-author"></div><div class="detail-tags">'+tags.map(x=>'<span class="tag-pill">'+x+'</span>').join("")+'</div></div></div><div class="detail-actions"><button id="btn-read" class="btn-primary" type="button">'+(S.chaps.length?"Ler agora":"Sem capítulos PT-BR")+'</button><button id="btn-fav" class="btn-fav '+(fav?"saved":"")+'" type="button">'+(fav?"♥ Salvo":"♡ Favoritar")+'</button></div><div class="detail-desc"></div><div class="chapters-header"><h2 class="section-title" style="margin:0">Capítulos ('+S.chaps.length+')</h2><button id="btn-sort" class="pill-btn" type="button">'+(S.desc?"Recentes ↓":"Cap. 1 ↑")+'</button></div><div id="ch-list" class="chapters-list"></div>';
   b.querySelector(".detail-title").textContent=t;b.querySelector(".detail-author").textContent=au+" • "+(stMap[m.attributes.status]||"");b.querySelector(".detail-desc").textContent=ds;
   $("btn-fav").onclick=()=>{const fv=gJ(K.FAV,[]),i=fv.findIndex(x=>x.mangaId===m.id);if(i>=0){fv.splice(i,1);toast("Removido")}else{fv.unshift({mangaId:m.id,title:t,cover:gCov(m,256)});toast("Salvo!")}sJ(K.FAV,fv);renderDetail()};
   $("btn-sort").onclick=()=>{S.desc=!S.desc;renderDetail()};
-  if(S.chaps.length)$("btn-read").onclick=()=>openChap(firstIdx);
+  if(S.chaps.length)$("btn-read").onclick=()=>openChap(playIdx);else $("btn-read").disabled=true;
   const cl=$("ch-list");
   S.chaps.forEach((ch,i)=>{
     const btn=document.createElement("button");btn.type="button";btn.className="chapter-item"+(rd.has(ch.id)?" read":"");
     const sc=(ch.relationships||[]).find(r=>r.type==="scanlation_group")?.attributes?.name||"Scan";
-    btn.innerHTML='<div><div class="chapter-num">Capítulo '+(ch.attributes.chapter||"?")+(ch.attributes.title?" — "+ch.attributes.title:"")+'</div><div class="chapter-sub">'+sc+" • "+ch.attributes.pages+' págs</div></div><span class="chapter-badge">'+ch.attributes.translatedLanguage.toUpperCase()+'</span>';
+    const isExt=ch.attributes.externalUrl&&ch.attributes.pages===0;
+    btn.innerHTML='<div class="chapter-info"><div class="chapter-num">Capítulo '+(ch.attributes.chapter||"?")+(ch.attributes.title?" — "+ch.attributes.title:"")+'</div><div class="chapter-sub">'+sc+" • "+(isExt?"Link externo":ch.attributes.pages+" págs")+'</div></div><span class="chapter-badge">'+(isExt?"EXTERNO ↗":ch.attributes.translatedLanguage.toUpperCase())+'</span>';
     btn.onclick=()=>openChap(i);cl.appendChild(btn);
   });
 }
 function adjIdx(dir){return S.desc?S.r.idx-dir:S.r.idx+dir}
 async function openChap(i){
   const ch=S.chaps[i];if(!ch)return;
-  if(ch.attributes.externalUrl&&ch.attributes.pages===0)return window.open(ch.attributes.externalUrl,"_blank","noopener");
+  if(ch.attributes.externalUrl&&ch.attributes.pages===0){window.location.href=ch.attributes.externalUrl;return}
   S.r.idx=i;S.r.pg=0;$("reader-overlay").classList.remove("hidden");document.body.style.overflow="hidden";setHud(true);
   $("reader-manga-title").textContent=gTitle(S.manga.attributes);$("reader-chapter-title").textContent="Capítulo "+(ch.attributes.chapter||"?");
   const p=adjIdx(-1),n=adjIdx(1);$("reader-prev-chap").disabled=p<0||p>=S.chaps.length;$("reader-next-chap").disabled=n<0||n>=S.chaps.length;
-  $("reader-loading").classList.remove("hidden");$("reader-pages").innerHTML="";
+  $("reader-loading").classList.remove("hidden");$("reader-loading").textContent="Carregando páginas...";$("reader-pages").innerHTML="";
   const rl=gJ(K.READ,[]);if(!rl.includes(ch.id)){rl.push(ch.id);sJ(K.READ,rl.slice(-300))}
   const hs=gJ(K.HIS,[]).filter(x=>x.mangaId!==S.manga.id);hs.unshift({mangaId:S.manga.id,title:gTitle(S.manga.attributes),cover:gCov(S.manga,256),chapterNum:ch.attributes.chapter||"?"});sJ(K.HIS,hs.slice(0,40));
   try{
     const sv=await api("/at-home/server/"+ch.id);
+    if(!sv.chapter||!sv.baseUrl)throw new Error("Sem servidor");
     const fs=S.r.qual==="dataSaver"&&sv.chapter.dataSaver?.length?sv.chapter.dataSaver:sv.chapter.data;
     const fld=S.r.qual==="dataSaver"?"data-saver":"data";
     S.r.pages=fs.map(f=>"/img?url="+encodeURIComponent(sv.baseUrl+"/"+fld+"/"+sv.chapter.hash+"/"+f));
+    S.r.fallbacks=fs.map(f=>"/img?url="+encodeURIComponent("https://uploads.mangadex.org/"+fld+"/"+sv.chapter.hash+"/"+f));
     $("reader-loading").classList.add("hidden");renderPages();
-  }catch{$("reader-loading").textContent="Erro ao carregar páginas."}
+  }catch(err){
+    $("reader-loading").innerHTML='<div>Erro ao carregar páginas ('+(err.message||"rede")+').</div><button class="pill-btn" type="button" onclick="openChap('+i+')">Tentar novamente</button>';
+  }
+}
+function mkReaderImg(src,fallback){
+  const img=document.createElement("img");
+  img.src=src;
+  img.onerror=()=>{if(!img.dataset.retried&&fallback){img.dataset.retried="1";img.src=fallback}};
+  return img;
 }
 function renderPages(){
   const c=$("reader-pages"),st=$("reader-stage"),cnt=$("reader-page-counter"),tot=S.r.pages.length;
   c.innerHTML="";c.className="reader-pages mode-"+S.r.mode;st.scrollTop=0;
   if(!tot)return cnt.textContent="0/0";
   if(S.r.mode==="paged"){
-    const img=document.createElement("img");img.src=S.r.pages[S.r.pg];c.appendChild(img);cnt.textContent=(S.r.pg+1)+"/"+tot;
+    c.appendChild(mkReaderImg(S.r.pages[S.r.pg],S.r.fallbacks[S.r.pg]));cnt.textContent=(S.r.pg+1)+"/"+tot;
     if(S.r.pg+1<tot){new Image().src=S.r.pages[S.r.pg+1]}
   }else{
     cnt.textContent=tot+" págs";
-    S.r.pages.forEach((src,i)=>{const img=document.createElement("img");img.src=src;img.loading=i<3?"eager":"lazy";c.appendChild(img)});
+    S.r.pages.forEach((src,i)=>c.appendChild(mkReaderImg(src,S.r.fallbacks[i])));
     const n=adjIdx(1);if(n>=0&&n<S.chaps.length){const b=document.createElement("button");b.className="btn-primary";b.style.margin="24px 0 40px";b.textContent="Próximo Capítulo →";b.onclick=()=>openChap(n);c.appendChild(b)}
   }
 }
